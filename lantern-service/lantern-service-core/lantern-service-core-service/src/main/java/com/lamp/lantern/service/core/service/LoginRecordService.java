@@ -9,10 +9,12 @@ public interface LoginRecordService {
 
     public Integer insertLoginRecord(LoginRecordEntity loginRecordEntity);
 
-    public List<LoginRecordEntity> checkLoginRecordEntitysByUserId(UserInfoEntity userInfoEntity);
+    public List<LoginRecordEntity> checkLoginRecordByUserId(UserInfoEntity userInfoEntity);
 
-    public Integer updateLoginRecordEntityExitTimeField(LoginRecordEntity loginRecordEntity);
+    public List<LoginRecordEntity> getAllLoginRecords();
 
-    public Integer updateLoginRecordEntityQuitWayField(LoginRecordEntity loginRecordEntity);
+    public Integer updateLoginRecordExitTimeField(LoginRecordEntity loginRecordEntity);
+
+    public Integer updateLoginRecordQuitWayField(LoginRecordEntity loginRecordEntity);
 
 }

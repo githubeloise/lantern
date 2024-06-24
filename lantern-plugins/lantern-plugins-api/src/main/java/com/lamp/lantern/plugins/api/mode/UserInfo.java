@@ -11,18 +11,27 @@
  */
 package com.lamp.lantern.plugins.api.mode;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.lamp.lantern.plugins.api.enums.StatusEnum;
 
+import com.lamp.lantern.plugins.api.injection.OperateInfoInjection;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class UserInfo {
+@ApiModel(value="用户登录对象",description="用户登录对象")
+public class UserInfo extends OperateInfoInjection implements Serializable {
     /**
      * 用户唯一Id
      */
+    @ApiModelProperty(value = "用户唯一ID")
     private Long uiId;
+
+    private Long systemId;
 
     /**
      * 用户名
@@ -37,7 +46,7 @@ public class UserInfo {
     /**
      * 用户唯一标识符
      */
-    private String uiIdcard;
+    private String uiIdCard;
 
     /**
      * 用户手机号
@@ -55,35 +64,19 @@ public class UserInfo {
     private String uiHeadPortrait;
 
     /**
-     * 用户字段缺失标志位
-     */
-    private Integer uiLackFlag;
-
-    /**
      * 用户性别
      */
     private String uiSex;
 
     /**
-     * 用户年龄
-     */
-    private Integer uiAge;
-
-    /**
      * 用户生日
      */
-
-    private Date uiBirth;
+    private LocalDate uiBirth;
 
     /**
      * 用户地址
      */
     private String uiAddress;
-
-    /**
-     * 用户密码 需要加密
-     */
-    private String uiPassword;
 
     /**
      * 用户盐
@@ -95,10 +88,6 @@ public class UserInfo {
      */
     private String uiSaltPassword;
 
-    /**
-     * 用户令牌
-     */
-    private String uiToken;
 
     /**
      * 用户最近登录地址
@@ -108,28 +97,38 @@ public class UserInfo {
     /**
      * 用户最近登录时间
      */
-    private Date uiLoginTime;
+    private LocalDateTime uiLoginTime;
 
     /**
      * 用户最近退出时间
      */
-    private Date uiExitTime;
+    private LocalDateTime uiExitTime;
 
-
-    /**
-     * 用户第三方记录表Id, 默认从1开始
-     */
-    private Integer triId;
 
     /**
      * 用户状态
+     * 1:第一次登录
+     * 2:认证中
      */
-    private StatusEnum uiStatus;
+    private Long uiStatus;
+
+    private String uiToken;
+
+//    private LocalDateTime uiCreateTime;
+//
+//    private Long uiCreateUserId;
+//
+//    private LocalDateTime uiUpdateTime;
+//
+//    private Long uiUpdateUserId;
 
     /**
      * 用户是否允许登录 （黑白名单功能）
      */
-    private StatusEnum allowLogin;
-    
-    private String token;
+    private StatusEnum uiAllowLogin;
+
+    private Integer isDelete;
+
+    private String uiPassword;
+
 }

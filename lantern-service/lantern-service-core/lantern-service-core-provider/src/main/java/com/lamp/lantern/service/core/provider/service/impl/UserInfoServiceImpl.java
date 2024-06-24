@@ -1,11 +1,18 @@
 package com.lamp.lantern.service.core.provider.service.impl;
 
+import com.lamp.lantern.plugins.api.enums.StatusEnum;
+import com.lamp.lantern.plugins.api.mode.UserInfo;
 import com.lamp.lantern.service.core.entity.UserInfoEntity;
 import com.lamp.lantern.service.core.provider.mapper.UserInfoMapper;
 import com.lamp.lantern.service.core.service.UserInfoService;
 import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.PostConstruct;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Transactional
@@ -16,8 +23,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 
     @Override
-    public Integer registerUserInfoEntity(UserInfoEntity userInfoEntity){
-        return userInfoEntityMapper.registerUserInfoEntity(userInfoEntity);
+    public UserInfoEntity registerUserInfoEntity(UserInfoEntity userInfoEntity){
+        userInfoEntityMapper.registerUserInfoEntity(userInfoEntity);
+        return userInfoEntity;
     }
 
     @Override
@@ -37,7 +45,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public UserInfoEntity queryUserByUserName(UserInfoEntity userInfoEntity){
-        return userInfoEntityMapper.queryUserByUserName(userInfoEntity);
+        return userInfoEntityMapper.checkUserExistByUserName(userInfoEntity);
     }
 
     @Override
@@ -46,14 +54,42 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public Integer quertUserById() {
-        return userInfoEntityMapper.quertUserById();
+    public UserInfoEntity queryUserById(UserInfoEntity userInfoEntity) {
+        return userInfoEntityMapper.checkUserByUserId(userInfoEntity);
     }
+
+    @Override
+    public Integer deleteUser(UserInfoEntity userInfoEntity) {
+        return userInfoEntityMapper.deleteUser(userInfoEntity);
+    }
+
+    @Override
+    public Integer deleteUsers(List<UserInfoEntity> userInfoEntities) {
+        return userInfoEntityMapper.deleteUsers(userInfoEntities);
+    }
+
+    @Override
+    public List<UserInfoEntity> getAllUserInfos() {
+        return userInfoEntityMapper.getAllUserInfos();
+    }
+
+    @Override
+    public List<UserInfoEntity> getUpdatedUserInfos(LocalDateTime time){
+        return userInfoEntityMapper.getUpdatedUserInfos(time);
+    }
+
+    @Override
+    public UserInfoEntity registerThirdLoginUser(UserInfoEntity userInfo) {
+        userInfoEntityMapper.registerThirdLoginUser(userInfo);
+        return userInfo;
+    }
+
 
     @Override
     public UserInfoEntity checkUserByUserId(UserInfoEntity userInfoEntity) {
         return userInfoEntityMapper.checkUserByUserId(userInfoEntity);
     }
+
 
     @Override
     public UserInfoEntity checkUserByUserIdOrPhoneOrEmail(UserInfoEntity userInfoEntity){
